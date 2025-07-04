@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pour toi ❤️</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #ffd6e8, #ffe6f2);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .photo {
+            width: 60vw;
+            max-width: 250px;
+            height: 60vw;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo:hover {
+            transform: scale(1.05);
+        }
+
+        .click-text {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #ff69b4;
+            font-style: italic;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .message {
+            margin-top: 20px;
+            color: #ff1493;
+            font-size: 1.5rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 4s linear forwards;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-150px) scale(1.5);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .message {
+                font-size: 1.2rem;
+            }
+
+            .click-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="./photo/maha2.jpg" alt="Photo d'amour" class="photo" id="photo" />
+        <div class="click-text" id="clickText">Clique sur toi ❤️</div>
+        <div class="message" id="message">❤️ 1 mois avec toi Mimita, que du bonheur ma praline, je pense fort à toi ❤️
+        </div>
+    </div>
+
+    <script>
+        const photo = document.getElementById('photo');
+        const message = document.getElementById('message');
+        const clickText = document.getElementById('clickText');
+
+        let photoSwitched = false;
+
+        const loveSymbols = ['💖', '💘', '💕', '💞', '❤️', '🌸', '✨', '🌹', '💫', '💟'];
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = loveSymbols[Math.floor(Math.random() * loveSymbols.length)];
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.top = `${90 + Math.random() * 10}%`;
+            heart.style.fontSize = `${16 + Math.random() * 20}px`;
+            heart.style.color = ['#ff69b4', '#ff1493', '#ff0000', '#e75480', '#c71585'][Math.floor(Math.random() * 5)];
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        function startLoveAnimation() {
+            setInterval(createFloatingHeart, 300);
+        }
+
+        photo.addEventListener('click', () => {
+            if (!photoSwitched) {
+                photo.src = "./photo/maha1.jpg";
+                message.style.opacity = 1;
+                clickText.style.display = "none";
+                photoSwitched = true;
+                startLoveAnimation(); // Démarre animation infinie
+            }
+        });
+    </script>
+</body>
+
+</html>
